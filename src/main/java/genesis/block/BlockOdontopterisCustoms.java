@@ -61,4 +61,10 @@ public class BlockOdontopterisCustoms implements IGrowingPlantCustoms
 	public void updateTick(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, Random rand, boolean grew)
 	{
 	}
+
+	@Override
+	public CanStayOptions canStayAt(BlockGrowingPlant plant, World worldIn, BlockPos pos, boolean placed)
+	{
+		return CanStayOptions.YIELD;
+	}
 }

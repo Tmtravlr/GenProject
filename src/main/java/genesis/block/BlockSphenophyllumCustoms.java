@@ -2,7 +2,9 @@ package genesis.block;
 
 import genesis.block.BlockGrowingPlant.GrowingPlantProperties;
 import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms;
+import genesis.block.BlockGrowingPlant.IGrowingPlantCustoms.CanStayOptions;
 import genesis.common.GenesisItems;
+import genesis.util.WorldUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -63,21 +65,6 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 		
 		return null;
 	}
-	
-	protected boolean waterInRange(World worldIn, BlockPos pos, int radius, int dUp)
-	{
-		Iterable<BlockPos> checkArea = (Iterable<BlockPos>) BlockPos.getAllInBox(pos.add(-radius, -1 - dUp, -radius), pos.add(radius, -1 + dUp, radius));
-		
-		for (BlockPos checkPos : checkArea)
-		{
-			if (worldIn.getBlockState(checkPos).getBlock().getMaterial() == Material.water)
-			{
-				return true;
-			}
-		}
-		
-		return false;
-	}
 
 	@Override
 	public void updateTick(BlockGrowingPlant plant, World worldIn, BlockPos pos, IBlockState state, Random rand, boolean grew)
@@ -122,7 +109,7 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 				{
 					spreadPos = spreadToList.get(rand.nextInt(spreadToList.size()));
 					
-					if (worldIn.isAirBlock(spreadPos) && plant.canPlaceBlockAt(worldIn, spreadPos) && waterInRange(worldIn, spreadPos, 3, 1))
+					if (worldIn.isAirBlock(spreadPos) && plant.canPlaceBlockAt(worldIn, spreadPos) && WorldUtils.waterInRange(worldIn, spreadPos, 3, 1))
 					{
 						break;
 					}
@@ -138,5 +125,11 @@ public class BlockSphenophyllumCustoms implements IGrowingPlantCustoms
 				}
 			}
 		}
+	}
+
+	@Override
+	public CanStayOptions canStayAt(BlockGrowingPlant plant, World worldIn, BlockPos pos, boolean placed)
+	{
+		return CanStayOptions.YIELD;
 	}
 }

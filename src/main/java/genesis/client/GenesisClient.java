@@ -22,6 +22,8 @@ import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.client.FMLClientHandler;
 
 public class GenesisClient extends GenesisProxy
@@ -49,6 +51,8 @@ public class GenesisClient extends GenesisProxy
 		}
 		
 		((IReloadableResourceManager) MC.getResourceManager()).registerReloadListener(new ColorizerDryMoss());
+		
+		ModelLoaderRegistry.registerLoader(GenesisCustomModelLoader.instance);
 	}
 
 	@Override
@@ -163,5 +167,10 @@ public class GenesisClient extends GenesisProxy
 			this.metadata = metadata;
 			this.name = name;
 		}
+	}
+	
+	public void registerCustomModel(String path, IModel model)
+	{
+		GenesisCustomModelLoader.registerCustomModel(path, model);
 	}
 }

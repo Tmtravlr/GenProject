@@ -3,6 +3,7 @@ package genesis.common;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class GenesisProxy
@@ -38,4 +39,6 @@ public class GenesisProxy
 	{
 		GameRegistry.registerItem(item, name);
 	}
+	
+	public void registerCustomModel(String path, IModel model) { }
 }

@@ -2,6 +2,7 @@ package genesis.common;
 
 import java.util.ArrayList;
 
+import genesis.block.BlockCalamites;
 import genesis.block.BlockCoral;
 import genesis.block.BlockDung;
 import genesis.block.BlockFern;
@@ -77,20 +78,23 @@ public final class GenesisBlocks
 
 	/* Plants */
 	public static final BlockPlant plant = (BlockPlant) new BlockPlant().setUnlocalizedName(Constants.PREFIX + "plant");
+	public static final BlockGrowingPlant calamites = (BlockGrowingPlant) new BlockCalamites(false, 15, 10)
+			.setGrowthChanceMult(6, 1, 1)
+			.setUnlocalizedName(Constants.PREFIX + "plant.calamites");
 	public static final BlockFern fern = (BlockFern) new BlockFern().setUnlocalizedName(Constants.PREFIX + "fern");
 
 	/* Crops */
-	public static final BlockGrowingPlant zingiberopsis = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 4, 2).setTopPosition(2)
+	public static final BlockGrowingPlant zingiberopsis = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true).setBreakAllTogether(true)
 			.setPlantType(EnumPlantType.Crop)
 			.setUnlocalizedName(Constants.PREFIX + "crop.zingiberopsis");
-	public static final BlockGrowingPlant sphenophyllum = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 4, 2).setTopPosition(2)
+	public static final BlockGrowingPlant sphenophyllum = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true)
 			.setPlantType(EnumPlantType.Plains)
 			.setGrowthChanceMult(5, 1, 1)
 			.setCustomsInterface(new BlockSphenophyllumCustoms())
 			.setUnlocalizedName(Constants.PREFIX + "plant.sphenophyllum");
-	public static final BlockGrowingPlant odontopteris = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 4, 2).setTopPosition(2)
+	public static final BlockGrowingPlant odontopteris = (BlockGrowingPlant) new BlockGrowingPlant(true, 7, 5, 2).setTopPosition(2)
 			.setGrowAllTogether(true).setBreakAllTogether(true)
 			.setPlantType(EnumPlantType.Crop)
 			.setGrowthChanceMult(16, 0.4F, 0.95F)
@@ -138,6 +142,10 @@ public final class GenesisBlocks
 		Genesis.proxy.registerBlock(marcasite_ore, "marcasite_ore");
 		Genesis.proxy.registerBlock(dung_block, "dung_block", ItemBlockMetadata.class, EnumDung.class);
 		Genesis.proxy.registerBlock(plant, "plant", ItemBlockMetadata.class, EnumPlant.class);
+
+		Genesis.proxy.registerBlock(calamites, "calamites");
+		calamites.setHarvestLevel("axe", 0);
+		
 		Genesis.proxy.registerBlock(fern, "fern", ItemBlockColored.class, EnumFern.class);
 		
 		Genesis.proxy.registerBlock(zingiberopsis, "zingiberopsis", null);
@@ -146,8 +154,10 @@ public final class GenesisBlocks
 		zingiberopsis.setCropDrops(new RandomItemDrop(GenesisItems.zingiberopsis_rhizome, 1, 3));
 		zingiberopsis.setPickedItem(GenesisItems.zingiberopsis_rhizome);
 		GenesisItems.zingiberopsis_rhizome.setCrop(zingiberopsis);
+		
 		Genesis.proxy.registerBlock(sphenophyllum, "sphenophyllum");
 		sphenophyllum.setPlantSize(0, 0.2F, 0.75F);
+		
 		Genesis.proxy.registerBlock(odontopteris, "odontopteris", null);
 		odontopteris.setPlantSize(0, 0.2F, 0.75F);
 		odontopteris.setDrops(new RandomItemDrop(GenesisItems.odontopteris_seeds, 1, 1));
