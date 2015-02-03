@@ -19,85 +19,28 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IModelState;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import genesis.common.Genesis;
 import genesis.util.Constants;
 
 public class BlockCalamitesModel implements IModel
 {
-	public static class CalamitesBakedModel implements IFlexibleBakedModel
-	{
-		VertexFormat format = new VertexFormat();
-		
-		public CalamitesBakedModel()
-		{
-			format.setElement(new VertexFormatElement(0, EnumType.FLOAT, EnumUsage.POSITION, 3));
-		}
-		
-		@Override
-		public boolean isAmbientOcclusion()
-		{
-			return true;
-		}
-
-		@Override
-		public boolean isGui3d()
-		{
-			return false;
-		}
-
-		@Override
-		public boolean isBuiltInRenderer()
-		{
-			return false;
-		}
-
-		@Override
-		public TextureAtlasSprite getTexture()
-		{
-			return null;
-		}
-
-		@Override
-		public ItemCameraTransforms getItemCameraTransforms()
-		{
-			return ItemCameraTransforms.DEFAULT;
-		}
-
-		@Override
-		public List<BakedQuad> getFaceQuads(EnumFacing side)
-		{
-			ArrayList<BakedQuad> quads = new ArrayList<BakedQuad>();
-			
-			return quads;
-		}
-
-		@Override
-		public List<BakedQuad> getGeneralQuads()
-		{
-			ArrayList<BakedQuad> quads = new ArrayList<BakedQuad>();
-			
-			return quads;
-		}
-
-		@Override
-		public VertexFormat getFormat()
-		{
-            return new VertexFormat(format);
-		}
-	}
+	protected static ResourceLocation BASE_MODEL = new ResourceLocation(Constants.MOD_ID, "block/calamites_base");
+	protected static ResourceLocation TOP_MODEL = new ResourceLocation(Constants.MOD_ID, "block/calamites_top");
 	
 	public static BlockCalamitesModel instance;
 	
 	public static void register()
 	{
-		Genesis.proxy.registerCustomModel("blocks/calamites", new BlockCalamitesModel());
+		Genesis.proxy.registerCustomModel("models/block/calamites", new BlockCalamitesModel());
 	}
 
 	@Override
 	public Collection<ResourceLocation> getDependencies()
 	{
 		return new ArrayList<ResourceLocation>(){{
-			add(new ResourceLocation(Constants.MOD_ID, "blocks/calamites"));
+			add(BASE_MODEL);
+			add(TOP_MODEL);
 		}};
 	}
 
@@ -105,14 +48,17 @@ public class BlockCalamitesModel implements IModel
 	public Collection<ResourceLocation> getTextures()
 	{
 		return new ArrayList<ResourceLocation>(){{
-			add(new ResourceLocation(Constants.MOD_ID, "blocks/calamites"));
+			add(new ResourceLocation(Constants.MOD_ID, "blocks/calamites_base"));
+			add(new ResourceLocation(Constants.MOD_ID, "blocks/calamites_top"));
 		}};
 	}
 
 	@Override
 	public IFlexibleBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter)
 	{
-		return new CalamitesBakedModel();
+		IFlexibleBakedModel bakedModel = ModelLoaderRegistry.getModel(BASE_MODEL).bake(state, format, bakedTextureGetter);
+		
+		return bakedModel;
 	}
 
 	@Override
