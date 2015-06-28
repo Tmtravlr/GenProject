@@ -8,8 +8,8 @@ public class BiomeGenRiver extends BiomeGenBaseGenesis
 	public BiomeGenRiver(int id)
 	{
 		super(id);
-		this.biomeName = "River";
-		this.setHeight(BiomeGenBase.height_ShallowWaters);
+		biomeName = "River";
+		setHeight(BiomeGenBase.height_ShallowWaters);
 	}
 
 }

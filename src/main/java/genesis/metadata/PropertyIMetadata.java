@@ -1,34 +1,34 @@
 package genesis.metadata;
 
-import java.util.*;
-
 import com.google.common.collect.ImmutableSet;
-
-import net.minecraft.block.properties.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import net.minecraft.block.properties.PropertyHelper;
 
 public class PropertyIMetadata<T extends IMetadata> extends PropertyHelper
 {
 	protected final ImmutableSet<T> values;
-	
+
 	public PropertyIMetadata(String name, List<T> values)
 	{
 		super(name, IMetadata.class);
-		
+
 		this.values = ImmutableSet.copyOf(values);
 	}
-	
+
 	@Override
 	public Collection getAllowedValues()
 	{
 		return values;
 	}
-	
+
 	@Override
 	public String getName(Comparable value)
 	{
 		return ((IMetadata) value).getName();
 	}
-	
+
 	@Override
 	public boolean equals(Object other)
 	{
@@ -36,16 +36,16 @@ public class PropertyIMetadata<T extends IMetadata> extends PropertyHelper
 		{
 			return true;
 		}
-		
+
 		if (other != null && getClass() == other.getClass())
 		{
 			PropertyIMetadata propIMeta = (PropertyIMetadata) other;
-			
+
 			if (getName().equals(propIMeta.getName()))
 			{
 				Iterator<Comparable> ourValIter = getAllowedValues().iterator();
 				Iterator<Comparable> otherValIter = propIMeta.getAllowedValues().iterator();
-				
+
 				while (ourValIter.hasNext() && otherValIter.hasNext())
 				{
 					if (ourValIter.next() != otherValIter.next())
@@ -53,14 +53,14 @@ public class PropertyIMetadata<T extends IMetadata> extends PropertyHelper
 						return false;
 					}
 				}
-				
+
 				if (!ourValIter.hasNext() && !otherValIter.hasNext())
 				{
 					return true;
 				}
 			}
 		}
-		
+
 		return false;
 	}
 }

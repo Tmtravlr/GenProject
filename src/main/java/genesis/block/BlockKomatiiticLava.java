@@ -1,7 +1,6 @@
 package genesis.block;
 
 import genesis.common.GenesisBlocks;
-import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -25,21 +24,21 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 	public void onBlockAdded(World world, BlockPos pos, IBlockState state)
 	{
 		super.onBlockAdded(world, pos, state);
-		this.checkForMixing(world, pos, state);
+		checkForMixing(world, pos, state);
 	}
 
 	@Override
 	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock)
 	{
 		super.onNeighborBlockChange(world, pos, state, neighborBlock);
-		this.checkForMixing(world, pos, state);
+		checkForMixing(world, pos, state);
 	}
 
 	@Override
 	public int getLightValue(IBlockAccess world, BlockPos pos)
 	{
 		Block block = world.getBlockState(pos).getBlock();
-		if (this.maxScaledLight == 0)
+		if (maxScaledLight == 0)
 		{
 			return this.getLightValue();
 		}
@@ -47,13 +46,13 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 		{
 			return block.getLightValue(world, pos);
 		}
-		int data = this.quantaPerBlock - ((Integer) world.getBlockState(pos).getValue(LEVEL)).intValue() - 1;
-		return (int) (data / this.quantaPerBlockFloat * this.maxScaledLight);
+		int data = quantaPerBlock - ((Integer) world.getBlockState(pos).getValue(LEVEL)).intValue() - 1;
+		return (int) (data / quantaPerBlockFloat * maxScaledLight);
 	}
 
 	public boolean checkForMixing(World worldIn, BlockPos pos, IBlockState state)
 	{
-		if (this.blockMaterial == Material.lava)
+		if (blockMaterial == Material.lava)
 		{
 			boolean flag = false;
 			EnumFacing[] aenumfacing = EnumFacing.values();
@@ -77,7 +76,7 @@ public class BlockKomatiiticLava extends BlockFluidClassic
 				if (integer.intValue() <= 4)
 				{
 					worldIn.setBlockState(pos, GenesisBlocks.komatiite.getDefaultState());
-					this.triggerMixEffects(worldIn, pos);
+					triggerMixEffects(worldIn, pos);
 					return true;
 				}
 			}

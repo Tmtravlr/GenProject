@@ -1,6 +1,10 @@
 package genesis.common;
 
-import genesis.metadata.*;
+import genesis.metadata.EnumToolMaterial;
+import genesis.metadata.EnumToolQuality;
+import genesis.metadata.EnumTree;
+import genesis.metadata.ToolItems;
+import genesis.metadata.TreeBlocksAndItems;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -14,17 +18,17 @@ public final class GenesisCreativeTabs
 		{
 			super(label);
 		}
-		
+
 		@Override
 		public abstract ItemStack getIconItemStack();
-		
+
 		@Override
 		public final Item getTabIconItem()
 		{
 			return null;
 		}
 	}
-	
+
 	public static final CreativeTabs BLOCK = new CreativeTabs(Unlocalized.PREFIX + "buildingBlocks")
 	{
 		@Override

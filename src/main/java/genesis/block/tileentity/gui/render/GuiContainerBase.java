@@ -1,33 +1,35 @@
 package genesis.block.tileentity.gui.render;
 
-import java.util.*;
-
-import genesis.block.tileentity.gui.*;
-import genesis.util.*;
-import net.minecraft.client.gui.inventory.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.inventory.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
+import genesis.block.tileentity.gui.ContainerBase;
+import genesis.util.Constants;
+import java.util.List;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.inventory.Slot;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
+import net.minecraft.world.IWorldNameable;
 
 public class GuiContainerBase extends GuiContainer
 {
 	public static final ResourceLocation TEX = new ResourceLocation(Constants.ASSETS_PREFIX + "textures/gui/base.png");
-	
+
 	protected ContainerBase container;
 	protected IWorldNameable namer;
 
 	public GuiContainerBase(ContainerBase container, IWorldNameable namer)
 	{
 		super(container);
-		
+
 		this.container = container;
-		
+
 		this.namer = namer;
-		this.xSize = container.width;
-		this.ySize = container.height;
+		xSize = container.width;
+		ySize = container.height;
 	}
-	
+
 	@Override
 	public void initGui()
 	{
@@ -39,30 +41,30 @@ public class GuiContainerBase extends GuiContainer
 	{
 		String displayName = namer.getDisplayName().getUnformattedText();
 		fontRendererObj.drawString(displayName, xSize / 2 - fontRendererObj.getStringWidth(displayName) / 2, 6, 14737632);
-		
+
 		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 2, 14737632);
 	}
-	
+
 	public void drawTex(int x, int y, int w, int h, int u, int v, int uvW, int uvH)
 	{
 		final float px = 1 / 256F;
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer renderer = tessellator.getWorldRenderer();
 		renderer.startDrawingQuads();
-		renderer.addVertexWithUV(x, 	y + h,	zLevel,	u * px, 			(v + uvH) * px);
-		renderer.addVertexWithUV(x + w,	y + h,	zLevel,	(u + uvW) * px,	(v + uvH) * px);
-		renderer.addVertexWithUV(x + w,	y, 		zLevel,	(u + uvW) * px,	v * px);
-		renderer.addVertexWithUV(x, 	y, 		zLevel,	u * px, 			v * px);
+		renderer.addVertexWithUV(x, y + h, zLevel, u * px, (v + uvH) * px);
+		renderer.addVertexWithUV(x + w, y + h, zLevel, (u + uvW) * px, (v + uvH) * px);
+		renderer.addVertexWithUV(x + w, y, zLevel, (u + uvW) * px, v * px);
+		renderer.addVertexWithUV(x, y, zLevel, u * px, v * px);
 		tessellator.draw();
 	}
-	
+
 	public void drawTexBetweenSlots(int x, int y, int w, int h, int u, int v, int uvW, int uvH, Slot... slots)
 	{
 		int minX = -1;
 		int maxX = -1;
 		int minY = -1;
 		int maxY = -1;
-		
+
 		for (Slot slot : slots)
 		{
 			if (minX == -1)
@@ -81,9 +83,9 @@ public class GuiContainerBase extends GuiContainer
 			}
 		}
 
-		x += (minX + maxX + container.SLOT_W) / 2 - 1;
-		y += (minY + maxY + container.SLOT_H) / 2 - 1;
-		
+		x += (minX + maxX + ContainerBase.SLOT_W) / 2 - 1;
+		y += (minY + maxY + ContainerBase.SLOT_H) / 2 - 1;
+
 		drawTex(x, y, w, h, u, v, uvW, uvH);
 	}
 
@@ -93,9 +95,9 @@ public class GuiContainerBase extends GuiContainer
 		GlStateManager.color(1, 1, 1, 1);
 		mc.getTextureManager().bindTexture(TEX);
 
-		final int borderW = container.BORDER_W;
-		final int borderH = container.BORDER_H;
-		
+		final int borderW = ContainerBase.BORDER_W;
+		final int borderH = ContainerBase.BORDER_H;
+
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(guiLeft, guiTop, 0);
 
@@ -126,16 +128,16 @@ public class GuiContainerBase extends GuiContainer
 		// Center
 		drawTex(borderW, borderH, xSize - borderW * 2, ySize - borderH * 2,
 				borderW, borderH, 1, 1);
-		
+
 		for (Slot slot : (List<Slot>) inventorySlots.inventorySlots)
 		{
 			int slotX = slot.xDisplayPosition;
 			int slotY = slot.yDisplayPosition;
 			int slotU = -1;
 			int slotV = -1;
-			int slotW = container.SLOT_W;
-			int slotH = container.SLOT_H;
-			
+			int slotW = ContainerBase.SLOT_W;
+			int slotH = ContainerBase.SLOT_H;
+
 			if (container.isBigSlot(slot))
 			{
 				slotX += 4;
@@ -177,7 +179,7 @@ public class GuiContainerBase extends GuiContainer
 			drawTex(slot.xDisplayPosition - offsetX, slot.yDisplayPosition - offsetY, slotW, slotW,
 					slotU, slotV, slotW, slotW);
 		}
-		
+
 		GlStateManager.popMatrix();
 	}
 }

@@ -1,18 +1,26 @@
 package genesis.common;
 
-import genesis.item.*;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
-import genesis.util.Constants;
+import genesis.item.ItemFlintAndMarcasite;
+import genesis.item.ItemGenesis;
+import genesis.item.ItemGenesisBucket;
+import genesis.item.ItemGenesisBucketMilk;
+import genesis.item.ItemGenesisFood;
+import genesis.item.ItemGenesisSeedFood;
+import genesis.item.ItemGenesisSeeds;
+import genesis.metadata.DungBlocksAndItems;
+import genesis.metadata.EnumNodule;
+import genesis.metadata.ItemsCeramicBowls;
+import genesis.metadata.ToolItems;
+import genesis.metadata.TreeBlocksAndItems;
+import genesis.metadata.VariantsCombo;
+import genesis.metadata.VariantsOfTypesCombo.ObjectNamePosition;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.Constants.Unlocalized;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBucketMilk;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 public final class GenesisItems
 {
@@ -40,7 +48,7 @@ public final class GenesisItems
 	public static final Item liopleurodon_tooth = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "liopleurodonTooth");
 	public static final Item tyrannosaurus_saliva = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "tyrannosaurusSaliva");
 	public static final Item tyrannosaurus_tooth = new ItemGenesis().setUnlocalizedName(Unlocalized.MATERIAL + "tyrannosaurusTooth");
-	
+
 	/* Food */
 	public static final ItemGenesisSeedFood zingiberopsis_rhizome = (ItemGenesisSeedFood) new ItemGenesisSeedFood(2, 1.2F).setUnlocalizedName(Unlocalized.FOOD + "zingiberopsisRhizome");
 	public static final ItemGenesisSeedFood odontopteris_seeds = (ItemGenesisSeedFood) new ItemGenesisSeedFood(1, 0.8F).setUnlocalizedName(Unlocalized.FOOD + "odontopterisSeeds");
@@ -60,11 +68,11 @@ public final class GenesisItems
 	public static final Item cooked_liopleurodon = new ItemGenesisFood(16, 19.8F).setUnlocalizedName(Unlocalized.FOOD + "liopleurodonCooked");
 	public static final Item tyrannosaurus = new ItemGenesisFood(4, 2.8F).setUnlocalizedName(Unlocalized.FOOD + "tyrannosaurusRaw");
 	public static final Item cooked_tyrannosaurus = new ItemGenesisFood(16, 19.8F).setUnlocalizedName(Unlocalized.FOOD + "tyrannosaurusCooked");
-	
+
 	/* Tools */
 	public static final Item flint_and_marcasite = new ItemFlintAndMarcasite().setUnlocalizedName(Unlocalized.TOOL + "flintAndMarcasite");
 	public static final ToolItems tools = new ToolItems();
-	
+
 	/* Misc */
 	public static final Item ceramic_bucket = new ItemGenesisBucket(Blocks.air).setUnlocalizedName(Unlocalized.MISC + "ceramicBucket");
 	public static final Item ceramic_bucket_water = new ItemGenesisBucket(Blocks.flowing_water).setUnlocalizedName(Unlocalized.MISC + "ceramicBucketWater").setContainerItem(ceramic_bucket);
@@ -73,8 +81,8 @@ public final class GenesisItems
 
 	public static void registerItems()
 	{
-		GenesisBlocks.trees.registerVariants(GenesisBlocks.trees.BILLET);
-		tools.registerVariants(tools.PEBBLE);
+		GenesisBlocks.trees.registerVariants(TreeBlocksAndItems.BILLET);
+		tools.registerVariants(ToolItems.PEBBLE);
 		Genesis.proxy.registerItem(red_clay_ball, "red_clay_ball");
 		Genesis.proxy.registerItem(red_clay_bowl, "red_clay_bowl");
 		bowls.registerAll();
@@ -87,7 +95,7 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(malachite, "malachite");
 		Genesis.proxy.registerItem(olivine, "olivine");
 		nodules.registerAll();
-		tools.registerVariants(tools.FLAKE);
+		tools.registerVariants(ToolItems.FLAKE);
 		Genesis.proxy.registerItem(resin, "resin");
 		Genesis.proxy.registerItem(calamites, "calamites");
 		Genesis.proxy.registerItem(sphenophyllum_fiber, "sphenophyllum_fiber");
@@ -95,12 +103,12 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(programinis_seeds, "programinis_seeds");
 		Genesis.proxy.registerItem(programinis, "programinis");
 		Genesis.proxy.registerItem(prototaxites_flesh, "prototaxites_flesh");
-		GenesisBlocks.dungs.registerVariants(GenesisBlocks.dungs.DUNG);
+		GenesisBlocks.dungs.registerVariants(DungBlocksAndItems.DUNG);
 		Genesis.proxy.registerItem(arthropleura_chitin, "arthropleura_chitin");
 		Genesis.proxy.registerItem(liopleurodon_tooth, "liopleurodon_tooth");
 		Genesis.proxy.registerItem(tyrannosaurus_saliva, "tyrannosaurus_saliva");
 		Genesis.proxy.registerItem(tyrannosaurus_tooth, "tyrannosaurus_tooth");
-		
+
 		Genesis.proxy.registerItem(zingiberopsis_rhizome, "zingiberopsis_rhizome");
 		Genesis.proxy.registerItem(odontopteris_seeds, "odontopteris_seeds");
 		Genesis.proxy.registerItem(spirifer, "spirifer");
@@ -119,12 +127,11 @@ public final class GenesisItems
 		Genesis.proxy.registerItem(cooked_liopleurodon, "cooked_liopleurodon");
 		Genesis.proxy.registerItem(tyrannosaurus, "tyrannosaurus");
 		Genesis.proxy.registerItem(cooked_tyrannosaurus, "cooked_tyrannosaurus");
-		
+
 		Genesis.proxy.registerItem(flint_and_marcasite, "flint_and_marcasite");
-		
+
 		tools.registerAll();
-		
-		
+
 		bucket_komatiitic_lava = new ItemGenesisBucket(GenesisBlocks.komatiitic_lava).setUnlocalizedName(Unlocalized.MISC + "bucketKomatiiticLava");
 		Genesis.proxy.registerItem(ceramic_bucket, "ceramic_bucket");
 		Genesis.proxy.registerItem(ceramic_bucket_water, "ceramic_bucket_water");

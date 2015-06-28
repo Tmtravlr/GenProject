@@ -1,26 +1,24 @@
 package genesis.common;
 
-import java.util.*;
-
-import genesis.util.*;
-import net.minecraft.block.*;
-import net.minecraft.client.renderer.block.statemap.*;
-import net.minecraft.item.*;
-import net.minecraft.tileentity.*;
-import net.minecraft.util.*;
-import net.minecraftforge.client.model.*;
+import genesis.util.SidedFunction;
+import java.util.ArrayList;
+import java.util.List;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fluids.BlockFluidBase;
-import net.minecraftforge.fml.common.registry.*;
+import net.minecraftforge.fml.common.registry.GameData;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class GenesisProxy
 {
 	protected List<SidedFunction> preInitCalls = new ArrayList();
-	
+
 	public void registerPreInitCall(SidedFunction call)
 	{
 		preInitCalls.add(call);
 	}
-	
+
 	public void preInit()
 	{
 		for (SidedFunction call : preInitCalls)
@@ -30,12 +28,10 @@ public class GenesisProxy
 	}
 
 	public void init()
-	{
-	}
+	{}
 
 	public void postInit()
-	{
-	}
+	{}
 
 	public void registerBlock(Block block, String name)
 	{
@@ -46,15 +42,15 @@ public class GenesisProxy
 	{
 		GameRegistry.registerBlock(block, clazz, name);
 	}
-	
-	public void registerFluidBlock(BlockFluidBase block, String name){
+
+	public void registerFluidBlock(BlockFluidBase block, String name)
+	{
 		registerBlock(block, name);
 	}
 
 	/**
-	 * Registers a Block to an instance of an ItemBlock.
-	 * (To bypass Object... args in GameRegistry.registerBlocks which only works if the passed arguments' types are NOT
-	 * subclasses to the constructor's parameter types.
+	 * Registers a Block to an instance of an ItemBlock. (To bypass Object... args in GameRegistry.registerBlocks which only works
+	 * if the passed arguments' types are NOT subclasses to the constructor's parameter types.
 	 */
 	public void registerBlockWithItem(Block block, String name, Item item)
 	{
@@ -67,10 +63,9 @@ public class GenesisProxy
 	{
 		GameRegistry.registerItem(item, name);
 	}
-	
+
 	public void registerModel(Item item, int metadata, String textureName)
-	{
-	}
+	{}
 
 	public void callSided(SidedFunction sidedFunction)
 	{

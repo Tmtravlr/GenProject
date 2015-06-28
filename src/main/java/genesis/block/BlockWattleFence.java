@@ -1,23 +1,31 @@
 package genesis.block;
 
-import java.util.List;
-
-import genesis.client.*;
-import genesis.client.model.*;
-import genesis.common.*;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
-import genesis.util.*;
+import genesis.client.GenesisClient;
+import genesis.client.model.WattleFenceModel;
+import genesis.common.Genesis;
+import genesis.common.GenesisCreativeTabs;
+import genesis.metadata.EnumTree;
+import genesis.metadata.PropertyIMetadata;
+import genesis.metadata.VariantsOfTypesCombo;
+import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants.Unlocalized;
+import genesis.util.SidedFunction;
+import java.util.List;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.*;
-import net.minecraft.block.state.*;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -27,28 +35,28 @@ public class BlockWattleFence extends BlockFence
 	@BlockProperties
 	public static IProperty[] getProperties()
 	{
-		return new IProperty[]{};
+		return new IProperty[] {};
 	}
 
 	public final VariantsOfTypesCombo owner;
 	public final ObjectType type;
-	
+
 	public final PropertyIMetadata variantProp;
 	public final List<EnumTree> variants;
-	
+
 	public BlockWattleFence(final List<EnumTree> variants, VariantsOfTypesCombo owner, ObjectType type)
 	{
 		super(Material.wood);
-		
+
 		this.owner = owner;
 		this.type = type;
-		
+
 		variantProp = new PropertyIMetadata("variant", variants);
 		this.variants = variants;
-		
+
 		blockState = new BlockState(this, variantProp, NORTH, EAST, WEST, SOUTH);
 		setDefaultState(getBlockState().getBaseState());
-		
+
 		Genesis.proxy.callSided(new SidedFunction()
 		{
 			@SideOnly(Side.CLIENT)
@@ -58,10 +66,10 @@ public class BlockWattleFence extends BlockFence
 				WattleFenceModel.register(variants);
 			}
 		});
-		
+
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
-	
+
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
@@ -73,12 +81,12 @@ public class BlockWattleFence extends BlockFence
 	{
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), metadata, variantProp);
 	}
-	
+
 	@Override
 	public BlockWattleFence setUnlocalizedName(String name)
 	{
 		super.setUnlocalizedName(Unlocalized.PREFIX + name);
-		
+
 		return this;
 	}
 
@@ -97,12 +105,12 @@ public class BlockWattleFence extends BlockFence
 	{
 		return EnumWorldBlockLayer.CUTOUT;
 	}
-	
+
 	@Override
 	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list, Entity collidingEntity)
 	{
 		super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
-		
+
 		if (collidingEntity instanceof EntityFX)
 		{
 			for (int i = 0; i < list.size(); i++)

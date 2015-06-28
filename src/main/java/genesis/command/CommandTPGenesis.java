@@ -1,18 +1,13 @@
 package genesis.command;
 
-import genesis.world.TeleporterGenesis;
-import genesis.world.WorldProviderGenesis;
-
-import java.util.List;
-
 import com.google.common.collect.Lists;
-
+import genesis.world.TeleporterGenesis;
+import java.util.List;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.BlockPos;
-import net.minecraft.world.Teleporter;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
 
@@ -46,7 +41,8 @@ public class CommandTPGenesis implements ICommand
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) throws CommandException
 	{
-		if(DimensionManager.getWorld(37) == null){
+		if (DimensionManager.getWorld(37) == null)
+		{
 			DimensionManager.initDimension(37);
 		}
 		WorldServer server = DimensionManager.getWorld(37);

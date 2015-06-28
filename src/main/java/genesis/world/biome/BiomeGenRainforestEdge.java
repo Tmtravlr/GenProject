@@ -8,9 +8,9 @@ public class BiomeGenRainforestEdge extends BiomeGenRainforest
 	public BiomeGenRainforestEdge(int id)
 	{
 		super(id);
-		this.theBiomeDecorator.treesPerChunk = 0;
-		this.biomeName = "Rainforest Edge";
-		((BiomeDecoratorGenesis) this.theBiomeDecorator).lepidodendtronPerChunk = 10;
+		theBiomeDecorator.treesPerChunk = 0;
+		biomeName = "Rainforest Edge";
+		((BiomeDecoratorGenesis) theBiomeDecorator).lepidodendtronPerChunk = 10;
 	}
 
 }

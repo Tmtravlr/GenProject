@@ -1,11 +1,7 @@
 package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.IMetadata;
-import genesis.util.Constants.Unlocalized;
-
 import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.state.IBlockState;

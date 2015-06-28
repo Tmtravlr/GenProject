@@ -18,7 +18,7 @@ public class GenLayerReplaceOcean extends GenLayerGenesis
 	@Override
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight)
 	{
-		int[] aint = this.parent.getInts(areaX, areaY, areaWidth, areaHeight);
+		int[] aint = parent.getInts(areaX, areaY, areaWidth, areaHeight);
 		for (int i = 0; i < aint.length; i++)
 		{
 			if (aint[i] == BiomeGenBase.ocean.biomeID)

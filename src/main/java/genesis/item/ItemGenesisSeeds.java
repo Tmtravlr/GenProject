@@ -1,12 +1,9 @@
 package genesis.item;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.util.Constants.Unlocalized;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -20,19 +17,19 @@ public class ItemGenesisSeeds extends ItemSeeds
 {
 	IPlantable cropPlantable;
 	Block cropBlock;
-	
+
 	public ItemGenesisSeeds()
 	{
 		super(null, null);
-		
+
 		setCreativeTab(GenesisCreativeTabs.MATERIALS);
 	}
-	
+
 	public ItemGenesisSeeds setCrop(IPlantable plantable)
 	{
 		cropPlantable = plantable;
 		cropBlock = (Block) plantable;
-		
+
 		return this;
 	}
 
@@ -41,7 +38,7 @@ public class ItemGenesisSeeds extends ItemSeeds
 	{
 		BlockPos placePos = pos.offset(side);
 		IBlockState state = worldIn.getBlockState(placePos);
-		
+
 		if (side == EnumFacing.UP &&
 				worldIn.isAirBlock(placePos) &&
 				playerIn.canPlayerEdit(placePos, side, stack) &&
@@ -50,22 +47,22 @@ public class ItemGenesisSeeds extends ItemSeeds
 		{
 			worldIn.setBlockState(placePos, cropBlock.getDefaultState());
 			stack.stackSize--;
-			
+
 			return true;
 		}
-		
+
 		return false;
 	}
 
-    @Override
-    public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos)
-    {
-        return null;
-    }
+	@Override
+	public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos)
+	{
+		return null;
+	}
 
-    @Override
-    public IBlockState getPlant(IBlockAccess world, BlockPos pos)
-    {
-        return null;
-    }
+	@Override
+	public IBlockState getPlant(IBlockAccess world, BlockPos pos)
+	{
+		return null;
+	}
 }

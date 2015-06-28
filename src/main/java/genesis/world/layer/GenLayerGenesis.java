@@ -84,7 +84,7 @@ public abstract class GenLayerGenesis extends GenLayer
 		GenLayerReplaceOcean genlayervoronoizoomreplaced = new GenLayerReplaceOcean(100L, genlayervoronoizoom);
 		genlayerrivermix.initWorldGenSeed(seed);
 		genlayervoronoizoom.initWorldGenSeed(seed);
-		return new GenLayer[]{ genlayerrivermixreplaced, genlayervoronoizoomreplaced, genlayerrivermixreplaced };
+		return new GenLayer[] { genlayerrivermixreplaced, genlayervoronoizoomreplaced, genlayerrivermixreplaced };
 	}
 
 }

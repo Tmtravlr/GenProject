@@ -35,19 +35,19 @@ public class ItemBlockCobbania extends ItemLilyPad
 			{
 				IBlockState hitState = world.getBlockState(hitPos);
 				BlockPos placePos = hitPos.up();
-	
+
 				if (hitState.getBlock().getMaterial() == Material.water
-					&& ((Integer) hitState.getValue(BlockLiquid.LEVEL)).intValue() == 0
-					&& world.isAirBlock(placePos))
+						&& ((Integer) hitState.getValue(BlockLiquid.LEVEL)).intValue() == 0
+						&& world.isAirBlock(placePos))
 				{
 					world.setBlockState(placePos, block.getDefaultState());
 					player.swingItem();
-	
+
 					if (!player.capabilities.isCreativeMode)
 					{
 						--stack.stackSize;
 					}
-	
+
 					player.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
 				}
 			}

@@ -1,13 +1,9 @@
 package genesis.item;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.util.Constants.Unlocalized;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
@@ -25,7 +21,7 @@ public class ItemGenesisFood extends ItemFood
 	public ItemGenesisFood(int hunger, float saturation, boolean isWolfsFavoriteMeat)
 	{
 		super(hunger, saturation, isWolfsFavoriteMeat);
-		
+
 		setCreativeTab(GenesisCreativeTabs.FOOD);
 	}
 
@@ -50,7 +46,7 @@ public class ItemGenesisFood extends ItemFood
 	public ItemGenesisFood setPotionEffect(int id, int duration, int amplifier, float chance)
 	{
 		effects.put(chance, new PotionEffect(id, duration * 20, amplifier));
-		
+
 		return this;
 	}
 

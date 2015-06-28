@@ -1,46 +1,47 @@
 package genesis.util.render;
 
-import genesis.util.*;
-import net.minecraft.client.*;
-import net.minecraft.client.model.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.item.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.item.ItemStack;
 
 public class ItemAsEntityPart extends CustomEntityPart
 {
 	public ItemStack itemStack;
 	public ItemStack itemStackDef;
-	
+
 	public ItemAsEntityPart(ModelBase model)
 	{
 		super(model);
-		
+
 		offsetX += 0.5F;
 		offsetZ += 0.5F;
 		setDefaultState();
 	}
-	
+
+	@Override
 	public ItemAsEntityPart setDefaultState()
 	{
 		super.setDefaultState();
 
 		itemStackDef = itemStack;
-		
+
 		return this;
 	}
-	
+
+	@Override
 	public void resetState()
 	{
 		super.resetState();
-		
+
 		itemStack = itemStackDef;
 	}
-	
+
 	public void setStack(ItemStack stack)
 	{
 		itemStack = stack;
 	}
-	
+
 	@Override
 	public void doRender(float pxSize)
 	{

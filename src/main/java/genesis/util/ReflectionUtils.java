@@ -9,11 +9,11 @@ public class ReflectionUtils
 		for (Constructor constructor : clazz.getDeclaredConstructors())
 		{
 			Class[] parameterTypes = constructor.getParameterTypes();
-			
+
 			if (parameterTypes.length == args.length)
 			{
 				boolean correct = true;
-				
+
 				for (int i = 0; i < args.length; i++)
 				{
 					if (!parameterTypes[i].isAssignableFrom(args[i].getClass()))
@@ -21,17 +21,17 @@ public class ReflectionUtils
 						correct = false;
 					}
 				}
-				
+
 				if (correct)
 				{
 					return constructor;
 				}
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public static <T> T construct(Class<T> clazz, Object[] args)
 	{
 		try

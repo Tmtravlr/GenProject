@@ -1,10 +1,7 @@
 package genesis.block;
 
-import java.util.List;
-
 import genesis.common.GenesisCreativeTabs;
-import genesis.util.Constants.Unlocalized;
-import net.minecraft.block.Block;
+import java.util.List;
 import net.minecraft.block.BlockLilyPad;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -22,12 +19,11 @@ public class BlockCobbania extends BlockLilyPad
 		setStepSound(soundTypeGrass);
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 	}
-	
+
 	@Override
 	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list, Entity collidingEntity)
-	{
-	}
-	
+	{}
+
 	@Override
 	public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos)
 	{

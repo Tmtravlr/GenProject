@@ -1,7 +1,5 @@
 package genesis.metadata;
 
-import genesis.common.GenesisBlocks;
-import net.minecraft.item.Item;
 
 public enum EnumAquaticPlant implements IMetadata
 {
@@ -26,12 +24,12 @@ public enum EnumAquaticPlant implements IMetadata
 	@Override
 	public String getName()
 	{
-		return this.name;
+		return name;
 	}
 
 	@Override
 	public String getUnlocalizedName()
 	{
-		return this.unlocalizedName;
+		return unlocalizedName;
 	}
 }

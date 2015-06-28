@@ -1,13 +1,13 @@
 package genesis.util;
 
-import genesis.metadata.*;
-
-import java.util.*;
-
-import net.minecraft.block.properties.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
-
-import com.google.common.collect.*;
 
 public class BlockStateToMetadata
 {
@@ -63,36 +63,41 @@ public class BlockStateToMetadata
 			return bits;
 		}
 	}
-	
-	private static final HashSet<Class<? extends IProperty>> SORT_PROPERTIES = new HashSet(){{
-		add(PropertyBool.class);
-	}};
+
+	private static final HashSet<Class<? extends IProperty>> SORT_PROPERTIES = new HashSet()
+	{
+		{
+			add(PropertyBool.class);
+		}
+	};
 	private static final HashMap<IProperty, List<Comparable>> PROPERTY_VALUES = new HashMap();
-	
+
 	private static List<Comparable> getSortedValues(IProperty property)
 	{
 		List<Comparable> values = PROPERTY_VALUES.get(property);
-		
+
 		if (!PROPERTY_VALUES.containsKey(property))
 		{
 			values = new ArrayList(property.getAllowedValues());
-			
+
 			if (SORT_PROPERTIES.contains(property.getClass()))
 			{
 				Collections.sort(values);
 			}
-			
+
 			PROPERTY_VALUES.put(property, values);
 		}
-		
+
 		return values;
 	}
 
 	/**
 	 * Gets the IBlockState represented by the metadata passed to the function, filtered by an array of properties.
-	 * 
-	 * @param state The state to convert to metadata.
-	 * @param properties The properties to store in the metadata, in the desired order.
+	 *
+	 * @param state
+	 *            The state to convert to metadata.
+	 * @param properties
+	 *            The properties to store in the metadata, in the desired order.
 	 * @return The metadata to represent the IBlockState.
 	 */
 	public static int getMetaForBlockState(IBlockState state, IProperty... properties)
@@ -124,8 +129,9 @@ public class BlockStateToMetadata
 
 	/**
 	 * Gets the IBlockState represented by the metadata passed to the function.
-	 * 
-	 * @param state The state to convert to metadata.
+	 *
+	 * @param state
+	 *            The state to convert to metadata.
 	 * @return The metadata to represent the IBlockState.
 	 */
 	public static int getMetaForBlockState(IBlockState state)
@@ -135,10 +141,13 @@ public class BlockStateToMetadata
 
 	/**
 	 * Gets the IBlockState represented by the metadata passed to the function, filtered by an array of properties.
-	 * 
-	 * @param state The state to base the new state off of (will usually be Block.getDefaultState()).
-	 * @param metadata The metadata to restore to an IBlockState.
-	 * @param properties The properties to restore from the metadata, in the order they were passed to getMetaForBlockState.
+	 *
+	 * @param state
+	 *            The state to base the new state off of (will usually be Block.getDefaultState()).
+	 * @param metadata
+	 *            The metadata to restore to an IBlockState.
+	 * @param properties
+	 *            The properties to restore from the metadata, in the order they were passed to getMetaForBlockState.
 	 * @return The restored IBlockState.
 	 */
 	public static IBlockState getBlockStateFromMeta(IBlockState state, int metadata, IProperty... properties)
@@ -148,60 +157,63 @@ public class BlockStateToMetadata
 		for (IProperty property : properties)
 		{
 			List<Comparable> values = getSortedValues(property);
-			
+
 			BitwiseMask mask = new BitwiseMask(values.size());
 			int metaValue = (metadata & (mask.getMask() << offset)) >> offset;
-			
+
 			Comparable propValue = values.get(metaValue);
-			
+
 			state = state.withProperty(property, propValue);
-			
+
 			offset += mask.getBitCount();
 		}
-		
+
 		if (offset > MAXMETAVALUE.getBitCount())
 		{
 			throw new RuntimeException("Attempted to retrieve a property from an IBlockState past " + MAXMETAVALUE.getBitCount() + " bits, the maximum metadata bit count.");
 		}
-		
+
 		return state;
 	}
 
 	/**
 	 * Gets the IBlockState represented by the metadata passed to the function.
-	 * 
-	 * @param state The state to base the new state off of (will usually be Block.getDefaultState()).
-	 * @param metadata The metadata to restore to an IBlockState.
+	 *
+	 * @param state
+	 *            The state to base the new state off of (will usually be Block.getDefaultState()).
+	 * @param metadata
+	 *            The metadata to restore to an IBlockState.
 	 * @return The restored IBlockState.
 	 */
 	public static IBlockState getBlockStateFromMeta(IBlockState state, int metadata)
 	{
 		return getBlockStateFromMeta(state, metadata, (IProperty[]) state.getProperties().keySet().toArray(new IProperty[0]));
 	}
-	
+
 	/**
-	 * Gets the number of possible values after the provided properties have been stored in metadata.
-	 * Used to determine how many variants a block can store after storing other properties (like facing direction).
-	 * 
-	 * @param properties The properties that must be stored.
+	 * Gets the number of possible values after the provided properties have been stored in metadata. Used to determine how many
+	 * variants a block can store after storing other properties (like facing direction).
+	 *
+	 * @param properties
+	 *            The properties that must be stored.
 	 * @return Number of possible values.
 	 */
 	public static int getMetadataLeftAfter(IProperty... properties)
 	{
 		int bitsLeft = MAXMETAVALUE.getBitCount();
-		
+
 		for (IProperty property : properties)
 		{
 			BitwiseMask mask = new BitwiseMask(property.getAllowedValues().size());
 			bitsLeft -= mask.getBitCount();
 		}
-		
+
 		if (bitsLeft > 0)
 		{
 			int vals = (int) Math.pow(2, bitsLeft);
 			return vals;
 		}
-		
+
 		return 0;
 	}
 }

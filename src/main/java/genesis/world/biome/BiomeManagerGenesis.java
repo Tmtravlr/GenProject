@@ -1,14 +1,12 @@
 package genesis.world.biome;
 
+import com.google.common.collect.Maps;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeManager.BiomeEntry;
 import net.minecraftforge.common.BiomeManager.BiomeType;
-
-import com.google.common.collect.Maps;
 
 public class BiomeManagerGenesis
 {

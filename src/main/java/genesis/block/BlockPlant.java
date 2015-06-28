@@ -1,21 +1,27 @@
 package genesis.block;
 
-import genesis.common.*;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
-import genesis.util.*;
+import genesis.common.GenesisBlocks;
+import genesis.common.GenesisCreativeTabs;
+import genesis.metadata.IMetadata;
+import genesis.metadata.PropertyIMetadata;
+import genesis.metadata.VariantsOfTypesCombo;
+import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
+import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants.Unlocalized;
-
-import java.util.*;
-
-import net.minecraft.block.*;
-import net.minecraft.block.properties.*;
-import net.minecraft.block.state.*;
+import java.util.List;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
+import net.minecraft.item.Item;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fml.relauncher.*;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockPlant extends BlockBush
 {
@@ -25,15 +31,15 @@ public class BlockPlant extends BlockBush
 	@BlockProperties
 	public static IProperty[] getProperties()
 	{
-		return new IProperty[]{};
+		return new IProperty[] {};
 	}
-	
+
 	public final VariantsOfTypesCombo owner;
 	public final ObjectType type;
 
 	public final List<IMetadata> variants;
 	public final PropertyIMetadata variantProp;
-	
+
 	public BlockPlant(List<IMetadata> variants, VariantsOfTypesCombo owner, ObjectType type)
 	{
 		setHardness(0.0F);
@@ -43,10 +49,10 @@ public class BlockPlant extends BlockBush
 
 		this.owner = owner;
 		this.type = type;
-		
+
 		variantProp = new PropertyIMetadata("variant", variants);
 		this.variants = variants;
-		
+
 		blockState = new BlockState(this, variantProp);
 		setDefaultState(getBlockState().getBaseState());
 	}
@@ -55,7 +61,7 @@ public class BlockPlant extends BlockBush
 	public BlockPlant setUnlocalizedName(String unlocalizedName)
 	{
 		super.setUnlocalizedName(Unlocalized.PREFIX + unlocalizedName);
-		
+
 		return this;
 	}
 

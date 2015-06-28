@@ -12,8 +12,8 @@ public class WorldChunkManagerGenesis extends WorldChunkManager
 	{
 		super();
 		GenLayer[] agenlayer = GenLayerGenesis.initializeAllBiomeGenerators(seed);
-		this.genBiomes = agenlayer[0];
-		this.biomeIndexLayer = agenlayer[1];
+		genBiomes = agenlayer[0];
+		biomeIndexLayer = agenlayer[1];
 	}
 
 	public WorldChunkManagerGenesis(World worldIn)

@@ -1,14 +1,16 @@
 package genesis.block;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.metadata.*;
-import genesis.metadata.VariantsOfTypesCombo.*;
+import genesis.metadata.EnumTree;
+import genesis.metadata.IMetadata;
+import genesis.metadata.PropertyIMetadata;
+import genesis.metadata.VariantsOfTypesCombo;
+import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
+import genesis.metadata.VariantsOfTypesCombo.ObjectType;
 import genesis.util.BlockStateToMetadata;
 import genesis.util.Constants.Unlocalized;
-
 import java.util.List;
 import java.util.Random;
-
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockState;
@@ -30,28 +32,28 @@ public class BlockGenesisSaplings extends BlockSapling
 	@BlockProperties
 	public static IProperty[] getProperties()
 	{
-		return new IProperty[]{ STAGE };
+		return new IProperty[] { STAGE };
 	}
-	
+
 	public final VariantsOfTypesCombo owner;
 	public final ObjectType type;
-	
+
 	public final List<EnumTree> variants;
 	public final PropertyIMetadata variantProp;
-	
+
 	public BlockGenesisSaplings(List<EnumTree> variants, VariantsOfTypesCombo owner, ObjectType type)
 	{
 		super();
-		
+
 		this.owner = owner;
 		this.type = type;
-		
+
 		this.variants = variants;
 		variantProp = new PropertyIMetadata("variant", variants);
-		
+
 		blockState = new BlockState(this, variantProp, STAGE);
 		setDefaultState(getBlockState().getBaseState());
-		
+
 		setCreativeTab(GenesisCreativeTabs.DECORATIONS);
 		setStepSound(soundTypeGrass);
 	}
@@ -60,28 +62,28 @@ public class BlockGenesisSaplings extends BlockSapling
 	public BlockGenesisSaplings setUnlocalizedName(String name)
 	{
 		super.setUnlocalizedName(Unlocalized.PREFIX + name);
-		
+
 		return this;
 	}
-	
+
 	@Override
 	public IBlockState getStateFromMeta(int meta)
 	{
 		return BlockStateToMetadata.getBlockStateFromMeta(getDefaultState(), meta);
 	}
-	
+
 	@Override
 	public int getMetaFromState(IBlockState state)
 	{
 		return BlockStateToMetadata.getMetaForBlockState(state);
 	}
-	
+
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
 	{
 		owner.fillSubItems(type, variants, list);
 	}
-	
+
 	@Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
@@ -89,22 +91,22 @@ public class BlockGenesisSaplings extends BlockSapling
 		state = state.withProperty(variantProp, (Comparable) owner.getVariant(this, meta));
 		return state;
 	}
-	
+
 	@Override
 	public int damageDropped(IBlockState state)
 	{
 		return owner.getItemMetadata(type, (IMetadata) state.getValue(variantProp));
 	}
-	
+
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos)
 	{
 		return owner.getStack(type, (IMetadata) world.getBlockState(pos).getValue(variantProp));
 	}
-	
+
 	@Override
 	public void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand)
 	{
-		
+
 	}
 }

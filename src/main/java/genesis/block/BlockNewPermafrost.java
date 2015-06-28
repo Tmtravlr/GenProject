@@ -1,9 +1,7 @@
 package genesis.block;
 
 import genesis.common.GenesisItems;
-
 import java.util.Random;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;

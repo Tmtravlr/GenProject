@@ -13,14 +13,14 @@ public abstract class BiomeGenBaseGenesis extends BiomeGenBase
 	public BiomeGenBaseGenesis(int id)
 	{
 		super(id);
-		this.theBiomeDecorator = new BiomeDecoratorGenesis();
-		this.theBiomeDecorator.clayPerChunk = 1;
-		this.topBlock = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, BlockMoss.STAGE_LAST).withProperty(BlockGrass.SNOWY, false);
-		this.spawnableCaveCreatureList.clear();
-		this.spawnableCreatureList.clear();
-		this.spawnableMonsterList.clear();
-		this.spawnableWaterCreatureList.clear();
-		this.waterColorMultiplier = 0xaa791e;
+		theBiomeDecorator = new BiomeDecoratorGenesis();
+		theBiomeDecorator.clayPerChunk = 1;
+		topBlock = GenesisBlocks.moss.getDefaultState().withProperty(BlockMoss.STAGE, BlockMoss.STAGE_LAST).withProperty(BlockGrass.SNOWY, false);
+		spawnableCaveCreatureList.clear();
+		spawnableCreatureList.clear();
+		spawnableMonsterList.clear();
+		spawnableWaterCreatureList.clear();
+		waterColorMultiplier = 0xaa791e;
 	}
 
 	@Override

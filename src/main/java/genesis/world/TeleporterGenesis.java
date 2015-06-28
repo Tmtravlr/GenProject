@@ -15,7 +15,7 @@ public class TeleporterGenesis extends Teleporter
 	public TeleporterGenesis(WorldServer worldIn)
 	{
 		super(worldIn);
-		this.server = worldIn;
+		server = worldIn;
 	}
 
 	// Move the Entity to the portal
@@ -45,8 +45,7 @@ public class TeleporterGenesis extends Teleporter
 
 	@Override
 	public void removeStalePortalLocations(final long par1)
-	{
-	}
+	{}
 
 	@Override
 	public void placeInPortal(Entity entityIn, float rotationYaw)

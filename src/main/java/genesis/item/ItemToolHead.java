@@ -1,28 +1,22 @@
 package genesis.item;
 
 import genesis.common.GenesisCreativeTabs;
-import genesis.item.ItemGenesis;
-import genesis.metadata.ToolItems.*;
-import genesis.metadata.*;
-import genesis.metadata.ToolTypes.ToolType;
-import genesis.util.Constants;
+import genesis.metadata.IMetadata;
+import genesis.metadata.ToolItems;
+import genesis.metadata.ToolItems.ToolObjectType;
 import genesis.util.Constants.Unlocalized;
+import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
-
-import java.util.List;
 
 public class ItemToolHead extends ItemGenesis
 {
 	protected final List<IMetadata> variants;
 	public final ToolItems owner;
 	public final ToolObjectType type;
-	
+
 	public ItemToolHead(List<IMetadata> variants, ToolItems owner, ToolObjectType type)
 	{
 		super();
@@ -37,10 +31,10 @@ public class ItemToolHead extends ItemGenesis
 
 	@Override
 	public Item setUnlocalizedName(String unlocalizedName)
-    {
-        return super.setUnlocalizedName(Unlocalized.MATERIAL + unlocalizedName);
-    }
-	
+	{
+		return super.setUnlocalizedName(Unlocalized.MATERIAL + unlocalizedName);
+	}
+
 	@Override
 	public String getUnlocalizedName(ItemStack stack)
 	{
@@ -56,7 +50,7 @@ public class ItemToolHead extends ItemGenesis
 			subItems.add(stack);
 		}
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
 	{

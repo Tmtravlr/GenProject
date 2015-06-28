@@ -30,13 +30,13 @@ public class WorldProviderGenesis extends WorldProvider
 	@Override
 	protected void registerWorldChunkManager()
 	{
-		this.worldChunkMgr = new WorldChunkManagerGenesis(this.worldObj);
+		worldChunkMgr = new WorldChunkManagerGenesis(worldObj);
 	}
 
 	@Override
 	public IChunkProvider createChunkGenerator()
 	{
-		return new ChunkGeneratorGenesis(this.worldObj, this.worldObj.getSeed(), this.worldObj.getWorldInfo().isMapFeaturesEnabled(), this.worldObj.getWorldInfo().getGeneratorOptions());
+		return new ChunkGeneratorGenesis(worldObj, worldObj.getSeed(), worldObj.getWorldInfo().isMapFeaturesEnabled(), worldObj.getWorldInfo().getGeneratorOptions());
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package genesis.util.gui;
 
-import net.minecraft.inventory.*;
+import net.minecraft.inventory.IInventory;
 
 public class RestrictedDisabledSlot extends RestrictedSlot
 {
@@ -8,16 +8,16 @@ public class RestrictedDisabledSlot extends RestrictedSlot
 	{
 		public boolean isSlotDisabled(int index);
 	}
-	
+
 	protected final IInventoryDisabledSlots disabledSlots;
-	
+
 	public RestrictedDisabledSlot(IInventoryDisabledSlots inventory, int index, int x, int y)
 	{
 		super(inventory, index, x, y);
-		
+
 		disabledSlots = inventory;
 	}
-	
+
 	@Override
 	public boolean canBeHovered()
 	{

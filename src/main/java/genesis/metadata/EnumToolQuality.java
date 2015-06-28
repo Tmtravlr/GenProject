@@ -11,10 +11,10 @@ public enum EnumToolQuality implements IMetadata
 	SHARPENED("sharpened", 1.5F, 1.5F, 1.5F, 1.5F);
 
 	public static final String UNLOC_PREFIX = "item." + Unlocalized.TOOL_QUALITY;
-	
+
 	private final String name;
 	private final String unlocalizedName;
-	
+
 	private final float usesMult;
 	private final float efficiencyMult;
 	private final float entityDamageMult;
@@ -22,21 +22,21 @@ public enum EnumToolQuality implements IMetadata
 
 	EnumToolQuality(String name, String unlocalizedName,
 			float usesMult, float efficiencyMult, float entityDamageMult, float enchantabilityMult)
-	{
+			{
 		this.name = name != null ? name : "";
 		this.unlocalizedName = unlocalizedName != null ? unlocalizedName : "";
-		
+
 		this.usesMult = usesMult;
 		this.efficiencyMult = efficiencyMult;
 		this.entityDamageMult = entityDamageMult;
 		this.enchantabilityMult = enchantabilityMult;
-	}
+			}
 
 	EnumToolQuality(String name,
 			float usesMult, float efficiencyMult, float entityDamageMult, float enchantabilityMult)
-	{
+			{
 		this(name, name, usesMult, efficiencyMult, entityDamageMult, enchantabilityMult);
-	}
+			}
 
 	@Override
 	public String toString()
@@ -49,7 +49,7 @@ public enum EnumToolQuality implements IMetadata
 	{
 		return name;
 	}
-	
+
 	public boolean hasUnlocalizedName()
 	{
 		return !"".equals(unlocalizedName);
@@ -60,22 +60,22 @@ public enum EnumToolQuality implements IMetadata
 	{
 		return UNLOC_PREFIX + unlocalizedName;
 	}
-	
+
 	public float getUsesMult()
 	{
 		return usesMult;
 	}
-	
+
 	public float getEfficiencyMult()
 	{
 		return efficiencyMult;
 	}
-	
+
 	public float getEntityDamageMult()
 	{
 		return entityDamageMult;
 	}
-	
+
 	public float getEnchantabilityMult()
 	{
 		return enchantabilityMult;

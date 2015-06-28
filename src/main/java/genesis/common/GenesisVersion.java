@@ -1,20 +1,16 @@
 package genesis.common;
 
+import com.google.common.io.ByteStreams;
+import com.google.gson.Gson;
 import genesis.util.Constants;
-
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
-
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.versioning.ArtifactVersion;
 import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
-
 import org.apache.commons.compress.utils.IOUtils;
-
-import com.google.common.io.ByteStreams;
-import com.google.gson.Gson;
 
 public final class GenesisVersion extends ForgeVersion
 {

@@ -3,9 +3,7 @@ package genesis.item;
 import genesis.metadata.IMetadata;
 import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-
 import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
@@ -19,10 +17,10 @@ public class ItemDung extends ItemMulti
 	{
 		super(variants, owner, type);
 	}
-	
+
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
-    {
+	{
 		if (playerIn.canPlayerEdit(pos.offset(side), side, stack) && ItemDye.applyBonemeal(stack, worldIn, pos, playerIn))
 		{
 			if (!worldIn.isRemote)
@@ -32,7 +30,7 @@ public class ItemDung extends ItemMulti
 
 			return true;
 		}
-		
+
 		return false;
-    }
+	}
 }

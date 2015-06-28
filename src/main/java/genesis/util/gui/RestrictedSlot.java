@@ -10,7 +10,8 @@ public class RestrictedSlot extends Slot
 	{
 		super(inventoryIn, index, xPosition, yPosition);
 	}
-	
+
+	@Override
 	public boolean isItemValid(ItemStack stack)
 	{
 		return inventory.isItemValidForSlot(getSlotIndex(), stack);

@@ -14,27 +14,26 @@ public class GenLayerGenesisRiverMix extends GenLayerGenesis
 	public GenLayerGenesisRiverMix(long seed, GenLayer biomeLayer, GenLayer riverLayer)
 	{
 		super(seed);
-		this.biomePatternGeneratorChain = biomeLayer;
-		this.riverPatternGeneratorChain = riverLayer;
+		biomePatternGeneratorChain = biomeLayer;
+		riverPatternGeneratorChain = riverLayer;
 	}
 
 	/**
-	 * Initialize layer's local worldGenSeed based on its own baseSeed and the world's global seed (passed in as an
-	 * argument).
+	 * Initialize layer's local worldGenSeed based on its own baseSeed and the world's global seed (passed in as an argument).
 	 */
 	@Override
 	public void initWorldGenSeed(long seed)
 	{
-		this.biomePatternGeneratorChain.initWorldGenSeed(seed);
-		this.riverPatternGeneratorChain.initWorldGenSeed(seed);
+		biomePatternGeneratorChain.initWorldGenSeed(seed);
+		riverPatternGeneratorChain.initWorldGenSeed(seed);
 		super.initWorldGenSeed(seed);
 	}
 
 	@Override
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight)
 	{
-		int[] aint = this.biomePatternGeneratorChain.getInts(areaX, areaY, areaWidth, areaHeight);
-		int[] aint1 = this.riverPatternGeneratorChain.getInts(areaX, areaY, areaWidth, areaHeight);
+		int[] aint = biomePatternGeneratorChain.getInts(areaX, areaY, areaWidth, areaHeight);
+		int[] aint1 = riverPatternGeneratorChain.getInts(areaX, areaY, areaWidth, areaHeight);
 		int[] aint2 = IntCache.getIntCache(areaWidth * areaHeight);
 
 		for (int i1 = 0; i1 < areaWidth * areaHeight; ++i1)

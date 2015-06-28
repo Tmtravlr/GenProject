@@ -6,9 +6,9 @@ public class BiomeGenAuxForest extends BiomeGenBaseGenesis
 	public BiomeGenAuxForest(int id)
 	{
 		super(id);
-		this.theBiomeDecorator.treesPerChunk = 5;
-		this.theBiomeDecorator.grassPerChunk = 0;
-		this.biomeName = "Araucarioxylon Forest";
+		theBiomeDecorator.treesPerChunk = 5;
+		theBiomeDecorator.grassPerChunk = 0;
+		biomeName = "Araucarioxylon Forest";
 	}
 
 }

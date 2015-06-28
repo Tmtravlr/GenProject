@@ -1,8 +1,8 @@
 package genesis.world.layer;
 
+import genesis.common.GenesisBiomes;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
-import genesis.common.GenesisBiomes;
 
 public class GenLayerGenesisDeepOcean extends GenLayerGenesis
 {
@@ -10,7 +10,7 @@ public class GenLayerGenesisDeepOcean extends GenLayerGenesis
 	public GenLayerGenesisDeepOcean(long p_i45472_1_, GenLayer p_i45472_3_)
 	{
 		super(p_i45472_1_);
-		this.parent = p_i45472_3_;
+		parent = p_i45472_3_;
 	}
 
 	@Override
@@ -20,7 +20,7 @@ public class GenLayerGenesisDeepOcean extends GenLayerGenesis
 		int j1 = areaY - 1;
 		int k1 = areaWidth + 2;
 		int l1 = areaHeight + 2;
-		int[] aint = this.parent.getInts(i1, j1, k1, l1);
+		int[] aint = parent.getInts(i1, j1, k1, l1);
 		int[] aint1 = IntCache.getIntCache(areaWidth * areaHeight);
 
 		for (int i2 = 0; i2 < areaHeight; ++i2)

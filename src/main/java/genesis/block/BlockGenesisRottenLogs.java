@@ -5,9 +5,8 @@ import genesis.metadata.EnumTree;
 import genesis.metadata.VariantsOfTypesCombo;
 import genesis.metadata.VariantsOfTypesCombo.BlockProperties;
 import genesis.metadata.VariantsOfTypesCombo.ObjectType;
-
-import java.util.*;
-
+import java.util.List;
+import java.util.Random;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
@@ -19,13 +18,13 @@ public class BlockGenesisRottenLogs extends BlockGenesisLogs
 	{
 		return BlockGenesisLogs.getProperties();
 	}
-	
+
 	public BlockGenesisRottenLogs(List<EnumTree> variants, VariantsOfTypesCombo owner, ObjectType type)
 	{
 		super(variants, owner, type);
 		setStepSound(GenesisSounds.ROTTEN_LOG);
 	}
-	
+
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
 	{

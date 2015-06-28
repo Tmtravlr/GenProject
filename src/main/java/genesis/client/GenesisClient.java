@@ -1,50 +1,53 @@
 package genesis.client;
 
 import genesis.client.model.FluidModel;
-import genesis.common.*;
-import genesis.metadata.*;
-import genesis.util.*;
+import genesis.common.GenesisProxy;
+import genesis.metadata.IMetadata;
+import genesis.util.Constants;
+import genesis.util.GenesisStateMap;
+import genesis.util.SidedFunction;
 import genesis.util.render.ModelHelpers;
-
-import java.util.*;
-
-import net.minecraft.block.*;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.block.statemap.*;
+import java.util.HashMap;
+import java.util.Map;
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.client.resources.*;
-import net.minecraft.client.resources.model.*;
-import net.minecraft.item.*;
+import net.minecraft.client.resources.IReloadableResourceManager;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
-import net.minecraftforge.client.model.*;
-import net.minecraftforge.common.*;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ISmartBlockModel;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.BlockFluidBase;
-import net.minecraftforge.fml.client.*;
-import net.minecraftforge.fml.client.registry.*;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.*;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 public class GenesisClient extends GenesisProxy
 {
 	private static final Minecraft MC = FMLClientHandler.instance().getClient();
-	
+
 	protected Map<Class<? extends TileEntity>, TileEntitySpecialRenderer> mapTESRsToRegister = new HashMap();
-	
+
 	public static Minecraft getMC()
 	{
 		return MC;
 	}
-	
+
 	public static boolean fancyGraphicsEnabled()
 	{
-		return MC.isFancyGraphicsEnabled();
+		return Minecraft.isFancyGraphicsEnabled();
 	}
-	
+
 	private boolean hasInit = false;
-	
+
 	@Override
 	public void preInit()
 	{
@@ -52,25 +55,25 @@ public class GenesisClient extends GenesisProxy
 		{
 			call.client(this);
 		}
-		
+
 		// This should be called as late as possible in preInit.
-        ModelHelpers.preInit();
+		ModelHelpers.preInit();
 	}
 
 	@Override
 	public void init()
 	{
 		((IReloadableResourceManager) MC.getResourceManager()).registerReloadListener(new ColorizerDryMoss());
-		
+
 		ModelLoaderRegistry.registerLoader(GenesisCustomModelLoader.instance);
-        MinecraftForge.EVENT_BUS.register(GenesisCustomModelLoader.instance);
-        
-        // Gotta register TESRs after Minecraft has initialized, otherwise the vanilla piston TESR crashes.
-        for (Map.Entry<Class<? extends TileEntity>, TileEntitySpecialRenderer> entry : mapTESRsToRegister.entrySet())
-        {
-        	ClientRegistry.bindTileEntitySpecialRenderer(entry.getKey(), entry.getValue());
-        }
-		
+		MinecraftForge.EVENT_BUS.register(GenesisCustomModelLoader.instance);
+
+		// Gotta register TESRs after Minecraft has initialized, otherwise the vanilla piston TESR crashes.
+		for (Map.Entry<Class<? extends TileEntity>, TileEntitySpecialRenderer> entry : mapTESRsToRegister.entrySet())
+		{
+			ClientRegistry.bindTileEntitySpecialRenderer(entry.getKey(), entry.getValue());
+		}
+
 		GenesisParticles.createParticles();
 	}
 
@@ -78,10 +81,10 @@ public class GenesisClient extends GenesisProxy
 	public void registerBlock(Block block, String name, Class<? extends ItemBlock> clazz)
 	{
 		super.registerBlock(block, name, clazz);
-		
+
 		registerModel(block, name);
 	}
-	
+
 	@Override
 	public void registerFluidBlock(BlockFluidBase block, String name)
 	{
@@ -89,6 +92,7 @@ public class GenesisClient extends GenesisProxy
 		FluidModel.registerFluid(block);
 	}
 
+	@Override
 	public void callSided(SidedFunction sidedFunction)
 	{
 		sidedFunction.client(this);
@@ -103,8 +107,7 @@ public class GenesisClient extends GenesisProxy
 	}
 
 	private void registerMetaModels(Block block, IMetadata[] values)
-	{
-	}
+	{}
 
 	private void registerModel(Block block, String textureName)
 	{
@@ -114,7 +117,7 @@ public class GenesisClient extends GenesisProxy
 	private void registerModel(Block block, int metadata, String textureName)
 	{
 		Item itemFromBlock = Item.getItemFromBlock(block);
-		
+
 		if (itemFromBlock != null)
 		{
 			registerModel(itemFromBlock, metadata, textureName);
@@ -126,6 +129,7 @@ public class GenesisClient extends GenesisProxy
 		registerModel(item, 0, textureName);
 	}
 
+	@Override
 	public void registerModel(Item item, int metadata, String textureName)
 	{
 		ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(Constants.ASSETS_PREFIX + textureName, "inventory"));
@@ -138,30 +142,30 @@ public class GenesisClient extends GenesisProxy
 		{
 			map = new GenesisStateMap((StateMap) map);
 		}
-		
-	    ModelLoader.setCustomStateMapper(block, map);
+
+		ModelLoader.setCustomStateMapper(block, map);
 	}
-	
+
 	public void registerCustomModel(String path, IModel model)
 	{
 		GenesisCustomModelLoader.registerCustomModel(path, model);
 	}
-	
+
 	public void registerCustomModel(ResourceLocation path, ISmartBlockModel model)
 	{
 		GenesisCustomModelLoader.registerCustomModel(path, model);
 	}
-	
+
 	private void addVariantName(Block block, String name)
 	{
 		addVariantName(Item.getItemFromBlock(block), name);
 	}
-	
+
 	private void addVariantName(Item item, String name)
 	{
 		ModelBakery.addVariantName(item, Constants.ASSETS_PREFIX + name);
 	}
-	
+
 	public void registerTileEntityRenderer(Class<? extends TileEntity> teClass, TileEntitySpecialRenderer renderer)
 	{
 		mapTESRsToRegister.put(teClass, renderer);

@@ -1,9 +1,7 @@
 package genesis.world.biome.decorate;
 
 import genesis.common.GenesisBlocks;
-
 import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;

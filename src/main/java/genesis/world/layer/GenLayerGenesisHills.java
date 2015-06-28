@@ -1,13 +1,11 @@
 package genesis.world.layer;
 
 import genesis.common.GenesisBiomes;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class GenLayerGenesisHills extends GenLayerGenesis
 {
@@ -19,21 +17,21 @@ public class GenLayerGenesisHills extends GenLayerGenesis
 	{
 		super(seed);
 		this.parent = parent;
-		this.otherLayer = other;
+		otherLayer = other;
 	}
 
 	@Override
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight)
 	{
-		int[] aint = this.parent.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
-		int[] aint1 = this.otherLayer.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
+		int[] aint = parent.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
+		int[] aint1 = otherLayer.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
 		int[] aint2 = IntCache.getIntCache(areaWidth * areaHeight);
 
 		for (int i1 = 0; i1 < areaHeight; ++i1)
 		{
 			for (int j1 = 0; j1 < areaWidth; ++j1)
 			{
-				this.initChunkSeed(j1 + areaX, i1 + areaY);
+				initChunkSeed(j1 + areaX, i1 + areaY);
 				int k1 = aint[j1 + 1 + (i1 + 1) * (areaWidth + 2)];
 				int l1 = aint1[j1 + 1 + (i1 + 1) * (areaWidth + 2)];
 				boolean flag = (l1 - 2) % 29 == 0;
@@ -54,7 +52,7 @@ public class GenLayerGenesisHills extends GenLayerGenesis
 						aint2[j1 + i1 * areaWidth] = k1;
 					}
 				}
-				else if (this.nextInt(3) != 0 && !flag)
+				else if (nextInt(3) != 0 && !flag)
 				{
 					aint2[j1 + i1 * areaWidth] = k1;
 				}
@@ -63,9 +61,9 @@ public class GenLayerGenesisHills extends GenLayerGenesis
 					int i2 = k1;
 					int j2;
 
-					if (k1 == BiomeGenBase.deepOcean.biomeID && this.nextInt(3) == 0)
+					if (k1 == BiomeGenBase.deepOcean.biomeID && nextInt(3) == 0)
 					{
-						j2 = this.nextInt(2);
+						j2 = nextInt(2);
 
 						if (j2 == 0)
 						{
